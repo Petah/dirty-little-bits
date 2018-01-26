@@ -1,8 +1,7 @@
-class Unit {
+const GameObject = require("./game-object")
+
+module.export = class Unit {
     constructor(team
-        , x
-        , y
-        , sprite
         , teamColor
         , weaponArray) {
         this.team        = team;
