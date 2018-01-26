@@ -9,10 +9,11 @@ gulp.task('watch', ['default'], () => {
 });
 
 gulp.task('default', () => {
-    gulp.src([
-            'private/js/libs/*.js',
-            'private/js/client/*.js',
-        ])
+    gulp.src('private/js/libs/*.js')
+        .pipe(concat('libs.js'))
+        .pipe(gulp.dest('public'));
+
+    gulp.src('private/js/client/*.js')
         .pipe(babel({
             presets: ['env']
         }))
