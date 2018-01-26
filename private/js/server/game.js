@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const Renderer = require('../client/renderer');
 
 const wss = new WebSocket.Server({
     port: 8081,
@@ -17,6 +18,8 @@ module.exports = class Game {
         console.log('Game start');
 
         this.gameObjects = [];
+        this.renderer = new Renderer();
+        document.body.appendChild(this.renderer.view);
 
         let previousTime = 0;
         const gameLoop = () => {
