@@ -74,7 +74,7 @@ module.exports = class Team {
             let found = false;
             let p = this.players.length;
             while (p--) {
-                if (this.players[p].unit && this.players[p].unit.id == this.units[u].id) {
+                if (this.players[p].unit && this.players[p].unit.id === this.units[u].id) {
                     found = true;
                     break;
                 }

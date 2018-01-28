@@ -37,12 +37,7 @@ module.exports = class CollectorUnit extends Unit {
         );
         this.maxSpeed = 260;
         this.hasPart = false;
-        this.part = null;
-        this.canPickUpPart = false;
-        this.timeToSteal = 3;
         this.timeToHold = 20;
-        this.timeElapsed = 0;
-        this.isStealing = false;
         this.type = 'Unit';
         this.subType = 'CollectorUnit';
         this.collisionRadius = 40;
@@ -120,7 +115,7 @@ module.exports = class CollectorUnit extends Unit {
                     this.timeToHold -= deltaTime;
                     if (this.timeToHold <= 0) {
                         //console.log('held!!! ' + this.team + ' wins!');
-                        this.game.reset();
+                        this.game.win();
                     }
                     break;
                 }
@@ -218,17 +213,33 @@ module.exports = class CollectorUnit extends Unit {
     }
 
     ai() {
-        // this.accelerate(0, 1);
-        if(this.canCollect() || this.canPlace() || this.canSteal() || this.canHold()){
-            // console.log('collecti boi doin da shootz');
+        if(!this.waiting && (this.canCollect() || this.canPlace() || this.canSteal() || this.canHold())){
             this.shooting = true;
             this.accelerate(0,0);
-        }else {
+        } else {
+            let direction;
             this.shooting = false;
             const target = this.findTargets();
-            if(target){
-                const direction = math.pointDirection(this.x,this.y,target.x,target.y);
+            if(!this.waiting && target && Math.random() * this.aiRandomFactor >= 1){
+                direction = math.pointDirection(this.x,this.y,target.x,target.y);
                 this.accelerate(math.lengthDirX(1000,direction),math.lengthDirY(1000,direction));
+            } else {
+                direction = math.pointDirection(
+                    this.x,
+                    this.y,
+                    Math.random()*this.game.mapWidth,
+                    Math.random()*this.game.mapWidth);
+
+                this.accelerate(
+                    math.lengthDirX(Math.random()*1000,direction),
+                    math.lengthDirY(Math.random*1000,direction));
+
+                this.waiting = true;
+                this.waitTime -= this.game.deltaTime;
+                if (this.waitTime <= 0) {
+                    this.waiting = false;
+                    this.waitTime = 1;
+                }
             }
         }
     }
@@ -259,7 +270,7 @@ module.exports = class CollectorUnit extends Unit {
         }else{
             i = this.game.gameObjects.length;
             while(i--){
-                if(this.game.gameObjects[i].type === 'SatelliteStack' && this.game.gameObjects[i].team != this.team){
+                if(this.game.gameObjects[i].type === 'SatelliteStack' && this.game.gameObjects[i].team !== this.team){
                     return this.game.gameObjects[i];
                 }
             }

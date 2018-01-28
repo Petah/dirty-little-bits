@@ -21,6 +21,9 @@ module.exports = class Unit extends MovableGameObject {
         this.shooting = false;
         this.health = 100;
         this.maxHealth = 100;
+        this.waiting = true;
+        this.waitTime = 1;
+        this.aiRandomFactor = 10000;
     }
 
     getHurt(object, damage) {
