@@ -19,6 +19,8 @@ class AudioBuffer {
             'explode':'/sounds/explode.odd',
             'missile-die':'/sounds/missile-die.mp3',
             'tank-walk':'/sounds/tank-walk.ogg',
+            'spawn':'/sounds/spawn.ogg',
+            'kamikaze-walk':'/sounds/kamikaze-move.ogg',
 
         };
         this.buffer = [];
