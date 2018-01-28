@@ -10,8 +10,6 @@ class TitleUi {
         });
         this.element.innerHTML = `
             <form id="frm1">
-                Team 1 Name: <input type="text" name="team1name"><br><br>
-                Team 2 Name: <input type="text" name="team2name"><br><br>
                 Press [A] or [Space] to join.<br/>
                 <br/>
                 ${players.join('<br/>')}

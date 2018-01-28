@@ -85,6 +85,10 @@ const assets = {
     312: '/images/projectiles/tank2-projectiles3.png',
     313: '/images/projectiles/tank2-projectiles4.png',
 
+    320: '/images/projectiles/tank3-projectiles1.png',
+    321: '/images/projectiles/tank3-projectiles2.png',
+    322: '/images/projectiles/tank3-projectiles3.png',
+
     701: '/images/bg-tiled-green-2.png',
     702: '/images/bg-tiled-green-3.png',
     703: '/images/bg-tiled-green-4.png',
@@ -420,13 +424,62 @@ class Renderer {
         // ]);
         this.explode = [
             effects.starburst(1, [assets[300]]),
-            effects.starburst(1, [assets[301]]),
-            effects.starburst(1, [assets[302]]),
-            effects.starburst(1, [assets[303]]),
-            effects.starburst(2, [assets[310]]),
-            effects.starburst(2, [assets[311]]),
-            effects.starburst(2, [assets[312]]),
-            effects.starburst(2, [assets[313]]),
+            effects.starburst(2, [assets[301]]),
+            effects.starburst(3, [assets[302]]),
+            effects.starburst(4, [assets[303]]),
+            effects.starburst(5, [assets[310]]),
+            effects.starburst(6, [assets[311]]),
+            effects.starburst(7, [assets[312]]),
+            effects.starburst(8, [assets[313]]),
+        ];
+        let bloodOptions = {
+            alpha: {
+                start: 1,
+                end: 1,
+            },
+            scale: {
+                start: 2,
+                end: 1,
+            },
+            color: {
+                start: "ffffff",
+                end: "ffffff",
+            },
+            speed: {
+                start: 200,
+                end: 0,
+            },
+            startRotation: {
+                min: 0,
+                max: 360,
+            },
+            rotationSpeed: {
+                min: 0,
+                max: 0,
+            },
+            lifetime: {
+                min: 0.1,
+                max: 1,
+            },
+            frequency: 0.008,
+            emitterLifetime: 0.1,
+            maxParticles: 5,
+            pos: {
+                x: 0,
+                y: 0,
+            },
+            addAtBack: false,
+            spawnType: "circle",
+            spawnCircle: {
+                x: 0,
+                y: 0,
+                r: 10,
+            }
+        };
+        this.blood = [
+            effects.starburst(9, [assets[320]], bloodOptions),
+            effects.starburst(10, [assets[321]], bloodOptions),
+            effects.starburst(11, [assets[322]], bloodOptions),
         ];
 
         window.addEventListener('resize', this.resizeViewport.bind(this));
@@ -539,6 +592,9 @@ class Renderer {
 
     sortSprites() {
         this.layers.foreground.children.sort((a, b) => {
+            return a.y - b.y;
+        })
+        this.layers.map.children.sort((a, b) => {
             return a.y - b.y;
         })
     }

@@ -35,6 +35,8 @@ module.exports = class CollectorUnit extends Unit {
             yVelocity,
             team,
         );
+        this.health = 10;
+        this.maxHealth = 10;
         this.maxSpeed = 260;
         this.hasPart = false;
         this.timeToHold = 20;
@@ -115,7 +117,9 @@ module.exports = class CollectorUnit extends Unit {
                     this.timeToHold -= deltaTime;
                     if (this.timeToHold <= 0) {
                         //console.log('held!!! ' + this.team + ' wins!');
-                        this.game.win();
+                        this.game.win({
+                            team: this.team.id,
+                        });
                     }
                     break;
                 }

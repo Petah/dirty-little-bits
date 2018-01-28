@@ -35,7 +35,7 @@ module.exports = class TankUnit extends Unit {
         );
         this.health = 300;
         this.maxHealth = 300;
-        this.maxSpeed = 150;
+        this.maxSpeed = 110;
         this.collisionRadius = 80;
         this.type = 'Unit';
         this.subType = 'TankUnit';
@@ -53,6 +53,11 @@ module.exports = class TankUnit extends Unit {
                     const direction = math.pointDirection(this.x, this.y, collisions[c].x, collisions[c].y);
                     collisions[c].accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
                     collisions[c].getHurt(this, Math.random());
+
+                    this.game.server.send('blood', {
+                        x: collisions[c].x,
+                        y: collisions[c].y,
+                    });
                 }
             }
         }

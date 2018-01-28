@@ -12,6 +12,16 @@ class AudioBuffer {
             'radar': '/sounds/radar.wav',
             'shoot-3': '/sounds/shoot-3.wav',
             'shoot-4': '/sounds/shoot-4.wav',
+            'tank-die': '/sounds/tank-die.mp3',
+            'collector-walk':'/sounds/collector-walk.ogg',
+            'missile-walk':'/sounds/missile-walk.ogg',
+            'die':'/sounds/die.mp3',
+            'explode':'/sounds/explode.odd',
+            'missile-die':'/sounds/missile-die.mp3',
+            'tank-walk':'/sounds/tank-walk.ogg',
+            'spawn':'/sounds/spawn.ogg',
+            'kamikaze-walk':'/sounds/kamikaze-move.ogg',
+
         };
         this.buffer = [];
     }
@@ -86,7 +96,7 @@ class Audio {
         this.tracks[bufferId] = this.getContext().createBufferSource();
         this.tracks[bufferId].buffer = bufferedSound;
 
-        console.log(`Playing buffered sound with ID ${bufferId}`, bufferedSound);
+        // console.log(`Playing buffered sound with ID ${bufferId}`, bufferedSound);
 
         this.tracks[bufferId].connect(this.getGainNode());
         this.tracks[bufferId].start(0);

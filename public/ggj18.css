@@ -4,12 +4,15 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Caveat Brush', cursive;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #000;
     overflow: hidden;
+    color: #6C49B8;
+    font-weight: bold;
+    font-size: 26px;
 }
 
 #game {
@@ -18,7 +21,14 @@ body {
 }
 
 #title {
-    color: white;
+    background: url('/images/title/game-title.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 #win {
@@ -30,6 +40,9 @@ body {
     background: red;
     color: white;
     display: none;
+    background: url('/images/title/blank-title.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #hud {
@@ -39,4 +52,23 @@ body {
     bottom: 0;
     right: 0;
     background: transparent;
+}
+
+#border {
+    background: url('/images/frame.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+}
+
+#frm1 {
+    margin: 30% auto;
+    width: 600px;
+    text-align: center;
+
 }

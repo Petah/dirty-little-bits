@@ -24,6 +24,7 @@ module.exports = class Unit extends MovableGameObject {
         this.waiting = true;
         this.waitTime = 1;
         this.aiRandomFactor = 10000;
+        this.lastPlayedWalkSound = 0;
     }
 
     getHurt(object, damage) {
@@ -42,7 +43,14 @@ module.exports = class Unit extends MovableGameObject {
     }
 
     showDeathAnimation() {
-
+        if(this.subType === 'TankUnit') {
+            console.log("SubTypeDied: " + this.subType);
+            this.game.playAudioAtPoint('tank-die', this.x, this.y);
+        } else if(this.subType === 'CollectorUnit') {
+            this.game.playAudioAtPoint('die', this.x, this.y);
+        } else if(this.subType === 'MissileUnit') {
+            this.game.playAudioAtPoint('missile-die', this.x, this.y);
+        }
     }
 
     loop(deltaTime, currentTime) {
@@ -63,6 +71,26 @@ module.exports = class Unit extends MovableGameObject {
             if (this.powerUpTime <= 0) {
                 this.powerUp();
                 this.powerUp = null;
+            }
+        }
+
+        this.plaWalkSound(currentTime);
+    }
+
+    plaWalkSound(currentTime) {
+        if(currentTime - this.lastPlayedWalkSound > 2) {
+            if(this.subType == 'CollectorUnit') {
+                this.game.playAudioAtPoint('collector-walk', this.x, this.y);
+                this.lastPlayedWalkSound = currentTime;
+            } else if(this.subType == 'MissileUnit') {
+                this.game.playAudioAtPoint('missile-walk', this.x, this.y);
+                this.lastPlayedWalkSound = currentTime;
+            }  else if(this.subType == 'TankUnit') {
+                this.game.playAudioAtPoint('tank-walk', this.x, this.y);
+                this.lastPlayedWalkSound = currentTime;
+            } else if(this.subType == 'KamikazeUnit') {
+                this.game.playAudioAtPoint('kamikaze-walk', this.x, this.y);
+                this.lastPlayedWalkSound = currentTime;
             }
         }
     }

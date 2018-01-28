@@ -36,8 +36,8 @@ class Effects {
                 max: 1,
             },
             frequency: 0.008,
-            emitterLifetime: 0.31,
-            maxParticles: 30,
+            emitterLifetime: 0.1,
+            maxParticles: 20,
             pos: {
                 x: 0,
                 y: 0,

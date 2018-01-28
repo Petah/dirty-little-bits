@@ -236,3 +236,4 @@ module.exports = class Game {
         this.server.send('win', {});
     }
 }
+
