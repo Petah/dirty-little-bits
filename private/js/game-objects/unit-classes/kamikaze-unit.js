@@ -117,6 +117,7 @@ module.exports = class KamikazeUnit extends Unit {
                 }
             }
         } else {
+            this.accelerate(0,0);
             this.waiting = true;
             this.waitTime -= this.game.deltaTime;
             if (this.waitTime <= 0) {

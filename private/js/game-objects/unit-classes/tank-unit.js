@@ -74,6 +74,7 @@ module.exports = class TankUnit extends Unit {
                 this.accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
             }
         } else {
+            this.accelerate(0,0);
             this.waiting = true;
             this.waitTime -= this.game.deltaTime;
             if (this.waitTime <= 0) {
