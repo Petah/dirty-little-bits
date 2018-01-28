@@ -228,16 +228,6 @@ module.exports = class CollectorUnit extends Unit {
                 direction = math.pointDirection(this.x,this.y,target.x,target.y);
                 this.accelerate(math.lengthDirX(1000,direction),math.lengthDirY(1000,direction));
             } else {
-                direction = math.pointDirection(
-                    this.x,
-                    this.y,
-                    Math.random()*this.game.mapWidth,
-                    Math.random()*this.game.mapWidth);
-
-                this.accelerate(
-                    math.lengthDirX(Math.random()*1000,direction),
-                    math.lengthDirY(Math.random*1000,direction));
-
                 this.waiting = true;
                 this.waitTime -= this.game.deltaTime;
                 if (this.waitTime <= 0) {
