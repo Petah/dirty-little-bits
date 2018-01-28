@@ -61,7 +61,7 @@ module.exports = class KamikazeUnit extends Unit {
             let i = collisions.length;
             while (i--) {
                 if (collisions[i].type === 'Unit' && collisions[i].team.id !== this.team.id) {
-                    collisions[i].getHurt(this, 9000);
+                    collisions[i].getHurt(this, 90);
                     this.die(collisions[i]);
                     return;
                 }
