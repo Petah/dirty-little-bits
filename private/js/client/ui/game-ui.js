@@ -3,6 +3,7 @@ class GameUi {
         this.game = game;
         this.element = document.getElementById('game');
         this.hud = document.getElementById('hud');
+        this.border = document.getElementById('border');
         this.data = {};
     }
 
@@ -13,16 +14,18 @@ class GameUi {
                 text += `Team ${id} is ${this.data.collectState[id]}<br>`;
             }
         }
-        console.log(text);
         this.hud.innerHTML = text;
     }
 
     show() {
         this.element.style.display = 'block';
         this.hud.style.display = 'block';
+        this.border.style.display = 'block';
     }
 
     hide() {
         this.element.style.display = 'none';
+        this.hud.style.display = 'none';
+        this.border.style.display = 'none';
     }
 }

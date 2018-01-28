@@ -126,7 +126,6 @@ class Game {
                 while (p--) {
                     this.players[p].loop(deltaTime, currentTime);
                 }
-                console.log('render called');
                 this.gameUi.render();
                 break;
             }

@@ -94,8 +94,6 @@ const assets = {
     703: '/images/bg-tiled-green-4.png',
     704: '/images/bg-tiled-green-5.png',
 
-    400: '/images/cloud.png',
-
     800: '/images/white-circle.png',
     801: '/images/particles/circle-blur.png',
 };

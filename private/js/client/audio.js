@@ -96,7 +96,7 @@ class Audio {
         this.tracks[bufferId] = this.getContext().createBufferSource();
         this.tracks[bufferId].buffer = bufferedSound;
 
-        console.log(`Playing buffered sound with ID ${bufferId}`, bufferedSound);
+        // console.log(`Playing buffered sound with ID ${bufferId}`, bufferedSound);
 
         this.tracks[bufferId].connect(this.getGainNode());
         this.tracks[bufferId].start(0);

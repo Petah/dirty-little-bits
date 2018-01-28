@@ -68,7 +68,7 @@ class Client {
                     if (message.data.audioClip) {
                         // @Todo
                         // Check if object inside viewport
-                        console.log(`Playing audioClip: ${message.data.audioClip}`);
+                        // console.log(`Playing audioClip: ${message.data.audioClip}`);
                         audio.play(message.data.audioClip);
                     }
                     break;
@@ -76,8 +76,8 @@ class Client {
 
                 case 'win': {
                     console.log('win');
-                    // this.game.gameUI.hide();
-                    // this.game.winUI.show();
+                    this.game.gameUi.hide();
+                    this.game.winUi.show();
                     break;
                 }
 
