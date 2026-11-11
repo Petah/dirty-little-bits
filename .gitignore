@@ -7,3 +7,7 @@ public/ggj18.js
 
 \.idea/
 .wrangler/
+
+# Deploy config and scripts stay local
+wrangler.jsonc
+deploy.local.sh

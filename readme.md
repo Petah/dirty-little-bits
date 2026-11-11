@@ -38,10 +38,3 @@ The game server was a Node process using the `ws` package. Online, it runs on Cl
 - `cloudflare/worker.js` serves `public/` and gives each visitor their own Durable Object running the game server. The game resets the world whenever a screen connects, because it was built for one shared screen with gamepads.
 - `cloudflare/ws-shim.js` stands in for the `ws` package, and `cloudflare/globals.js` for the few Node features the server uses.
 
-```sh
-cd dev
-npm run cf:dev      # run locally at http://127.0.0.1:8788
-npm run cf:deploy   # publish to dirty-little-bits.projectz.co.nz
-```
-
-Run `npx wrangler login` before deploying.
