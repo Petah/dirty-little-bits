@@ -21,7 +21,9 @@ module.exports = class Unit extends MovableGameObject {
         this.shooting = false;
         this.health = 100;
         this.maxHealth = 100;
-                this.weapon = null;
+        this.waiting = true;
+        this.waitTime = 1;
+        this.aiRandomFactor = 10000;
         this.lastPlayedWalkSound = 0;
     }
 
@@ -76,7 +78,7 @@ module.exports = class Unit extends MovableGameObject {
     }
 
     plaWalkSound(currentTime) {
-        if(currentTime - this.lastPlayedWalkSound > 3) {
+        if(currentTime - this.lastPlayedWalkSound > 2) {
             if(this.subType == 'CollectorUnit') {
                 this.game.playAudioAtPoint('collector-walk', this.x, this.y);
                 this.lastPlayedWalkSound = currentTime;
@@ -85,6 +87,9 @@ module.exports = class Unit extends MovableGameObject {
                 this.lastPlayedWalkSound = currentTime;
             }  else if(this.subType == 'TankUnit') {
                 this.game.playAudioAtPoint('tank-walk', this.x, this.y);
+                this.lastPlayedWalkSound = currentTime;
+            } else if(this.subType == 'KamikazeUnit') {
+                this.game.playAudioAtPoint('kamikaze-walk', this.x, this.y);
                 this.lastPlayedWalkSound = currentTime;
             }
         }

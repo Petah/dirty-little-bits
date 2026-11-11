@@ -61,7 +61,7 @@ module.exports = class KamikazeUnit extends Unit {
             let i = collisions.length;
             while (i--) {
                 if (collisions[i].type === 'Unit' && collisions[i].team.id !== this.team.id) {
-                    collisions[i].getHurt(this, 9000);
+                    collisions[i].getHurt(this, 90);
                     this.die(collisions[i]);
                     return;
                 }
@@ -106,7 +106,7 @@ module.exports = class KamikazeUnit extends Unit {
 
     ai() {
         const target = this.findTarget();
-        if (target) {
+        if (!this.waiting && target && Math.random() * this.aiRandomFactor >= 1) {
             const direction = math.pointDirection(this.x, this.y, target.x, target.y);
             const distance = math.pointDistance(this.x, this.y, target.x, target.y);
             if (distance < 80) {
@@ -116,6 +116,14 @@ module.exports = class KamikazeUnit extends Unit {
                     this.accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
                 }
             }
+        } else {
+            this.accelerate(0,0);
+            this.waiting = true;
+            this.waitTime -= this.game.deltaTime;
+            if (this.waitTime <= 0) {
+                this.waiting = false;
+                this.waitTime = 1;
+            }
         }
     }
 
@@ -123,7 +131,7 @@ module.exports = class KamikazeUnit extends Unit {
         let targets = [];
         let g = this.game.gameObjects.length;
         while (g--) {
-            if (this.game.gameObjects[g].type == 'Unit' && this.game.gameObjects[g].team.id != this.team.id) {
+            if (this.game.gameObjects[g].type === 'Unit' && this.game.gameObjects[g].team.id !== this.team.id) {
                 targets.push(this.game.gameObjects[g]);
             }
         }

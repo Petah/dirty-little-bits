@@ -39,6 +39,7 @@ module.exports = class TankUnit extends Unit {
         this.collisionRadius = 80;
         this.type = 'Unit';
         this.subType = 'TankUnit';
+        this.cooldown = 1;
     }
 
     loop(deltaTime, currentTime) {
@@ -46,18 +47,22 @@ module.exports = class TankUnit extends Unit {
         this.updateSprite(sprites);
 
         if (this.shooting) {
-            const collisions = this.game.collisions[this.id];
-            let c = collisions.length;
-            while (c--) {
-                if (collisions[c].type === 'Unit' && collisions[c].team.id !== this.team.id) {
-                    const direction = math.pointDirection(this.x, this.y, collisions[c].x, collisions[c].y);
-                    collisions[c].accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
-                    collisions[c].getHurt(this, Math.random());
+            this.cooldown -= this.game.deltaTime;
+            if (this.cooldown <= 0) {
+                this.cooldown = 1;
+                const collisions = this.game.collisions[this.id];
+                let c = collisions.length;
+                while (c--) {
+                    if (collisions[c].type === 'Unit' && collisions[c].team.id !== this.team.id) {
+                        const direction = math.pointDirection(this.x, this.y, collisions[c].x, collisions[c].y);
+                        collisions[c].accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
+                        collisions[c].getHurt(this, Math.random());
 
-                    this.game.server.send('blood', {
-                        x: collisions[c].x,
-                        y: collisions[c].y,
-                    });
+                        this.game.server.send('blood', {
+                            x: collisions[c].x,
+                            y: collisions[c].y,
+                        });
+                    }
                 }
             }
         }
@@ -65,13 +70,22 @@ module.exports = class TankUnit extends Unit {
 
     ai() {
         const target = this.findTarget();
-        if (target) {
+        if (!this.waiting && target && Math.random() * this.aiRandomFactor >= 1) {
             const direction = math.pointDirection(this.x, this.y, target.x, target.y);
             const distance = math.pointDistance(this.x, this.y, target.x, target.y);
             if (distance < 100) {
                 this.shooting = true;
             } else {
                 this.accelerate(math.lengthDirX(1000, direction), math.lengthDirY(1000, direction));
+            }
+        } else {
+            this.accelerate(0,0);
+            this.waiting = true;
+            this.waitTime -= this.game.deltaTime;
+            if (this.waitTime <= 0) {
+                this.waiting = false;
+                this.waitTime = 1;
+
             }
         }
     }
@@ -80,7 +94,7 @@ module.exports = class TankUnit extends Unit {
         let targets = [];
         let g = this.game.gameObjects.length;
         while (g--) {
-            if (this.game.gameObjects[g].type == 'Unit' && this.game.gameObjects[g].team.id != this.team.id) {
+            if (this.game.gameObjects[g].type === 'Unit' && this.game.gameObjects[g].team.id !== this.team.id) {
                 targets.push(this.game.gameObjects[g]);
             }
         }

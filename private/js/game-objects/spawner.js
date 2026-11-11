@@ -61,6 +61,7 @@ module.exports = class Spawner extends GameObject {
                                 break;
                             }
                         }
+                        this.game.playAudioAtPoint('spawn', this.x, this.y);
                         return;
                     }
                 }
