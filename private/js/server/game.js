@@ -31,7 +31,12 @@ module.exports = class Game {
     start() {
         logger.log('Game start');
         this.server.start();
+        this.runLoop();
+    }
 
+    // Split out of start() so reset() can restart the loop after a win stops it.
+    runLoop() {
+        this.stopped = false;
         let lastSecond = 0;
         const hrTimeInit = process.hrtime();
         let previousTime = hrTimeInit[0] + hrTimeInit[1] / 1000000000;
@@ -106,6 +111,9 @@ module.exports = class Game {
         this.spawnSatelliteParts();
         this.spawnObstacles();
         // this.initializeMapObjects();
+        if (this.stopped) {
+            this.runLoop();
+        }
     }
 
     initTeams() {

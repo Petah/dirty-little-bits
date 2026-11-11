@@ -16,7 +16,7 @@ class AudioBuffer {
             'collector-walk':'/sounds/collector-walk.ogg',
             'missile-walk':'/sounds/missile-walk.ogg',
             'die':'/sounds/die.mp3',
-            'explode':'/sounds/explode.odd',
+            'explode':'/sounds/explode.ogg',
             'missile-die':'/sounds/missile-die.mp3',
             'tank-walk':'/sounds/tank-walk.ogg',
 

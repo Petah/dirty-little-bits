@@ -6,3 +6,4 @@ public/vendor.js
 public/ggj18.js
 
 \.idea/
+.wrangler/

@@ -14,7 +14,11 @@ class Client {
         // this.bind();
 
         // Create WebSocket connection.
-        this.socket = new WebSocket('ws://' + location.hostname + ':8081');
+        // Local dev (dev/start.sh) runs the game server on port 8081; online it's at /ws.
+        const socketUrl = location.port === '8080'
+            ? 'ws://' + location.hostname + ':8081'
+            : (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+        this.socket = new WebSocket(socketUrl);
 
         // Init audio
         var audio = new Audio();

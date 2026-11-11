@@ -1,0 +1,16 @@
+{
+  "name": "ggj18-dev",
+  "private": true,
+  "description": "Runs the GGJ 2018 game on current Node without the old Gulp 3 build.",
+  "dependencies": {
+    "pixi-particles": "2.1.9",
+    "pixi.js": "4.7.0",
+    "ws": "4.0.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "./start.sh",
+    "cf:dev": "node build.mjs && cd .. && npx --yes wrangler@4 dev --port 8788 --ip 127.0.0.1",
+    "cf:deploy": "node build.mjs && cd .. && npx --yes wrangler@4 deploy"
+  }
+}
